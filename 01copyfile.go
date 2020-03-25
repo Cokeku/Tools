@@ -39,13 +39,14 @@ func CopyFile(srcname ,dstname string)(written int64 ,err error){
 }
 
 func main() {
-	if dst == "./" {
-		_ , filename := path.Split(src)
-		dst = "./" + filename
+	dstpathname, dstfilename := path.Split(dst)
+	if dstfilename == "" {
+		_ , srcfilename := path.Split(src)
+		dst = dstpathname + srcfilename
 	}
 	_ ,err := CopyFile(src ,dst)
 	if err != nil {
-		fmt.Printf("文件拷贝失败：\n",err)
+		fmt.Printf("文件拷贝失败：%v \n",err)
 		return
 	}
 	fmt.Printf("文件拷贝完成!\n") 
